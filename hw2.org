@@ -1,0 +1,115 @@
+#+title: HW 2
+#+author: Yiyu Zhou
+#+date: February 13, 2026
+#+LaTeX_HEADER: \usepackage{pgfplots}
+
+* Problem 1.
+
+Let $\mathcal{R}$ be the region bounded by the graphs of $y = e^x$, $y
+= e^{-x}$ and the line $x = 1$.
+
+** (a)
+
+Find the volume of the solid obtained by rotating $\mathcal{R}$ about
+the y-axis.
+
+#+begin_export latex
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    xmin=-1/2,
+    ymin=-1/2, ymax=3.5,
+    xtick={1},
+    ytick={1/e, 1, e}, yticklabels={$\frac{1}{e}$, $1$, $e$},
+    axis lines=middle, xlabel=$x$, ylabel=$y$
+]
+\addplot[color=red, samples=64]{e^x};
+\addlegendentry{$y = e^x\text{, } f(y) = \ln{y}$}
+\addplot[color=blue, samples=64]{e^-x};
+\addlegendentry{$y = e^{-x}\text{, } g(y) = -\ln{y}$}
+\addplot[color=orange]
+        coordinates {(1,-100) (1,100)};
+\addlegendentry{$x = 1\text{, } h(y) = 1$}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+#+end_export
+
+Write equations as functions of $y$.
+
+#+begin_export latex
+\begin{align}
+y &= e^x \\
+\text{Let } f(y) = x &= \ln{y} \\
+y &= e^{-x} \\
+\text{Let } g(y) = x &= -\ln{y} \\
+\text{Let } h(y) = x &= 1
+\end{align}
+#+end_export
+
+Find all intersections of $f(y)$, $g(y)$ and $h(y)$.
+
+#+begin_export latex
+\begin{align}
+f(y) &= h(y) \\
+\ln{y} &= 1 \\
+y &= e
+\end{align}
+#+end_export
+
+$h(y)$ and $f(y)$ intersects at $y = e$.
+
+#+begin_export latex
+\begin{align}
+g(y) &= h(y) \\
+-\ln{y} &= 1 \\
+y &= \frac{1}{e}
+\end{align}
+#+end_export
+
+$h(y)$ and $g(y)$ intersects at $y = \frac{1}{e}$.
+
+#+begin_export latex
+\begin{align}
+V_\mathcal{R}
+&= \int_\frac{1}{e}^e{\pi \cdot (h(y))^2}\, dy - \int_\frac{1}{e}^1{\pi \cdot (g(y))^2}\, dy - \int_1^e{\pi \cdot (f(y))^2}\, dy  \\
+&= \pi \cdot \left[\int_\frac{1}{e}^e{h^2(y)}\, dy - \left(\int_\frac{1}{e}^1{g^2(y)}\, dy + \int_1^e{f^2(y)}\, dy \right)\right] \\
+&= \pi \cdot \left[\int_\frac{1}{e}^e{1}\, dy - \left(\int_\frac{1}{e}^1{(-\ln(y))^2}\, dy + \int_1^e{\ln^2(y)}\, dy \right)\right] \\
+&= \pi \cdot \left[y\Big|_\frac{1}{e}^e - \left((y \ln^2{y} - 2 y \ln{y} + 2y)\Big|_1^e + (y \ln^2{y} - 2y \ln{y} + 2y)\Big|_\frac{1}{e}^1 \right)\right] \\
+&= \pi \cdot \left[y\Big|_\frac{1}{e}^e - (y\, \ln^2{y} - 2y\, \ln{y} + 2y)\Big|_\frac{1}{e}^e \right] \\
+&= \pi \cdot \left[(e - \frac{1}{e}) - \left((e\ln^2{e} - 2e \ln{e} + 2e) - (\frac{1}{e}\ln^2{\frac{1}{e}} - 2 \cdot \frac{1}{e} \ln{\frac{1}{e}} + 2 \cdot \frac{1}{e})\right)\right] \\
+&= \frac{4\pi}{e}
+\end{align}
+#+end_export
+
+** (b)
+
+Find the volume of the solid obtained by rotating $\mathcal{R}$ about
+the $x = 1$.
+
+* Problem 2.
+
+Textbook, Section 6.3, Problem 64.
+
+* Problem 3.
+
+Suppose $n$ is a positive integer greater than or equal to $2$.  Use
+integration by parts with $u = \sin^{n-x}x$ to show that
+
+#+begin_export latex
+\begin{align*}
+\int \sin^n x\, dx
+= -\frac{1}{n} \cos x \sin^{n-1} x + \frac{n-1}{n} \int \sin^{n-2} x\, dx
+\end{align*}
+#+end_export
+
+* Problem 4.
+
+Use Problem 3 to show that
+
+#+begin_export latex
+\begin{align*}
+\int_0^\frac{\pi}{2} \sin^{2n} x\, dx
+= \frac{1 \cdot 3 \cdot 5 \cdot \cdots \cdot (2n - 1)}{2 \cdot 4 \cdot 6 \cdot \cdots \cdot 2n} \cdot \frac{\pi}{2}
+\end{align*}
+#+end_export
