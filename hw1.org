@@ -1,0 +1,194 @@
+#+title: HW 1
+#+author: Yiyu Zhou
+#+date: February 9, 2026
+#+LaTeX_HEADER: \usepackage{pgfplots}
+
+* Problem 1.
+
+Find the area of the region bounded by $y = x^2$, the line tangent to
+$y = x^2$ at the point $(1, 1)$, and the x-axis.
+
+#+begin_export latex
+\begin{align}
+\text{Let } f(x) = y = x^2
+\end{align}
+#+end_export
+
+Take the first derivative of $f(x)$.
+
+#+begin_export latex
+\begin{align}
+f'(x) = 2x
+\end{align}
+#+end_export
+
+We then find the slope of $f(x)$ at $(1, 1)$, where $x = 1$.
+
+#+begin_export latex
+\begin{align}
+m_{(1, 1)} &= f'(1) \\
+&= 2
+\end{align}
+#+end_export
+
+The tangent line $g(x)$ can be found using the point-slope formula.
+
+#+begin_export latex
+\begin{align}
+y - y_1 &= m(x - x_1) \\
+\text{Let } g(x) = y &= m(x - x_1) + y_1 \\
+g(x) &= 2(x - 1) + 1 \\
+g(x) &= 2x - 1
+\end{align}
+#+end_export
+
+Now, we find where $g(x)$ crosses the x-axis.
+
+#+begin_export latex
+\begin{align}
+\text{Let } g(x) &= 0 \\
+2x - 1 &= 0 \\
+x &= \frac{1}{2}
+\end{align}
+#+end_export
+
+There, we can get graph:
+
+#+begin_export latex
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    xmin=-1/2, xmax=3,
+    ymin=-1/2, ymax=3,
+    xtick={1/2,1},
+    ytick={1},
+    axis lines=middle, xlabel=$x$, ylabel=$y$
+]
+\addplot[color=red, samples=64]{x^2};
+\addlegendentry{$f(x) = x^2$}
+\addplot[color=blue]{2 * x - 1};
+\addlegendentry{$g(x) = 2x - 1$}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+#+end_export
+
+Finally, we find the area under $f(x)$ from $0$ to $1$ and subtract
+the area under $g(x)$ from $\frac{1}{2}$ to $1$.
+
+#+begin_export latex
+\begin{align}
+\int_0^1 f(x)\, dx - \int_\frac{1}{2}^1 g(x)\, dx
+&= \int_0^1 x^2\, dx - \int_\frac{1}{2}^1 (2x - 1)\, dx \\
+&= \frac{x^3}{3} \Big|_0^1 - (x^2 - x) \Big|_\frac{1}{2}^1 \\
+&= \frac{1}{12}
+\end{align}
+#+end_export
+
+* Problem 2.
+
+Consider the graph of $y = 8x - 27x^3$ in the first quadrant, and a
+horizontal line $y = c$ where $c$ is a positive constant.  There’s a
+picture in the book in section 6.1, problem 69.  We want to find the
+value of $c$ so that the two shaded regions in the picture are equal.
+
+#+begin_export latex
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    xmin=-0.2, xmax=0.8,
+    ymin=-0.2, ymax=2,
+    ytick={32 / 27}, yticklabels={$c$},
+    xtick={0.162678, 4/9}, xticklabels={$t$, $s$},
+    axis lines=middle, xlabel=$x$, ylabel=$y$
+]
+\addplot[color=red, domain=-0.2:0.8]{8 * x - 27 * x^3};
+\addlegendentry{$y = 8x - 27x^3$}
+\addplot[color=blue]{32 / 27};
+\addlegendentry{$y = c$}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+#+end_export
+
+** (a)
+
+Suppose the line and the parabola intersect at values $x = t$, and $x
+= s$.  Compute the area of the region between the graphs on $[0, t]$
+and the area of the region between the graphs on $[t, s]$.
+
+#+begin_export latex
+\begin{align}
+\setcounter{equation}{0}
+\text{Let } f(x) = 8x - 27x^3, g(x) = c
+\end{align}
+#+end_export
+
+The area of the region between the graphs on $[0, t]$:
+
+#+begin_export latex
+\begin{align}
+\int_0^t (g(x) - f(x))\, dx
+&= \int_0^t ( c - (8x - 27x^3))\, dx \\
+&= \int_0^t ( c - 8x + 27x^3)\, dx \\
+&=(cx - 4x^2 + \frac{27}{4}t^4)\Big|_0^t \\
+&=ct - 4t^2 + \frac{27t^4}{4}
+\end{align}
+#+end_export
+
+The area of the region between the graphs on $[t, s]$:
+
+#+begin_export latex
+\begin{align}
+\int_t^s (f(x) - g(x))\, dx
+&= \int_t^s (8x - 27x^3 - c)\, dx \\
+&= (4x^2 - \frac{27}{4}x^4 - cx)\Big|_t^s \\
+&= 4s^2 -\frac{27s^4}{4} - cs - 4t^2 + \frac{27t^4}{4} + ct
+\end{align}
+#+end_export
+
+** (b)
+
+Set the two expressions in (a) equal, and derive a formula for $c$ in
+terms of $s$.
+
+#+begin_export latex
+\begin{align}
+\setcounter{equation}{0}
+ct - 4t^2 + \frac{27t^4}{4} &= 4s^2 -\frac{27s^4}{4} - cs - 4t^2 + \frac{27t^4}{4} + ct \\
+4s^2 -\frac{27s^4}{4} - cs &= 0 \\
+c &= 4s - \frac{27s^3}{4}
+\end{align}
+#+end_export
+
+** (c)
+
+Find another expression for $c$ in terms of $s$ using the function $y
+= 8x - 27x^3$.
+
+$f = g$ at the intersection $s$ and $t$, therefore
+
+#+begin_export latex
+\begin{align}
+\setcounter{equation}{0}
+f(s) &= g(s) \\
+c &= 8s - 27s^3
+\end{align}
+#+end_export
+
+** (d)
+
+Use (b) and (c) to find the value of $c$ where the areas of the shaded
+regions are equal.
+
+#+begin_export latex
+\begin{align}
+\setcounter{equation}{0}
+4s - \frac{27s^3}{4} &= 8s - 27s^3 \\
+s(-16 + 81s^22) &= 0 \\
+s &= \frac{4}{9​} \text{,  where $s > 0$} \\
+c = 8s - 27s^3
+& = 8(\frac{4}{9​}) - 27(\frac{4}{9​})^3 \\
+& = \frac{32}{27}
+\end{align}
+#+end_export
